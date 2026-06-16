@@ -14,6 +14,6 @@ def info():
         "version": "1.0",
         "status": "running"
     }
-router.get("/student")
+@router.get("/student")
 def get_student():
     return student1
