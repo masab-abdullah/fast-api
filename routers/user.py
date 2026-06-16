@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.user import student
+from models.user import student1
 
 router = APIRouter()
 
@@ -14,11 +14,6 @@ def info():
         "version": "1.0",
         "status": "running"
     }
-
-@router.get("/student")
-def student():
-    return {
-        "name": "Ali",
-        "age": 18,
-        "course": "BSCS"
-    }
+router.get("/student")
+def get_student():
+    return student1
