@@ -7,7 +7,7 @@ class Student(BaseModel):
 
 
 student1 = Student(
-    name="masab",
+    name="gsd",
     age=19,
     course="BSCS"
 )
