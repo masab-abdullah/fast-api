@@ -5,6 +5,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from database.connection import get_db
 from sqlalchemy import text
+
 router = APIRouter()
 
 @router.get("/")
