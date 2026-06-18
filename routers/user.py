@@ -18,3 +18,11 @@ def info():
 @router.get("/student")
 def get_student():
     return student1
+
+@router.get("/students")
+def read_students():
+    return get_students()
+
+@router.post("/students")
+def create_student(student: Student):
+    return add_student(student.dict())
