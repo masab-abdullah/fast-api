@@ -1,5 +1,5 @@
-from fastapi import APIRouter
-from schemas.student import StudentCreate
+from fastapi import APIRouter 
+from schemas.student import StudentCreate, StudentUpdate
 from database.postgres_connection import (
     test_postgres_connection,
     PostgresSessionLocal,
@@ -56,6 +56,41 @@ def create_postgres_student(student: StudentCreate):
         return {
             "message": "Student added successfully",
             "student": student,
+        }
+
+    finally:
+        db.close()
+
+
+        @router.patch("/postgres-students/{student_id}")
+        def update_postgres_student(student_id: int, student: StudentUpdate):
+            db = PostgresSessionLocal()
+
+    try:
+        query = text("""
+            UPDATE student
+            SET 
+                name = COALESCE(:name, name),
+                age = COALESCE(:age, age),
+                course = COALESCE(:course, course)
+            WHERE id = :student_id
+        """)
+
+        db.execute(
+            query,
+            {
+                "name": student.name,
+                "age": student.age,
+                "course": student.course,
+                "student_id": student_id
+            }
+        )
+
+        db.commit()
+
+        return {
+            "message": "Student updated successfully",
+            "student_id": student_id
         }
 
     finally:
