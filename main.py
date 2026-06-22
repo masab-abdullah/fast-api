@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from routers import user
-from database.postgres_connection import test_postgres_connection
+from routers import postgres
 
 app = FastAPI()
 
-# connect router file to main app
 app.include_router(user.router)
+app.include_router(postgres.router)

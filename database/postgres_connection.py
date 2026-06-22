@@ -11,9 +11,12 @@ PostgresSessionLocal = sessionmaker(
     bind=postgres_engine
 )
 
-def get_postgres_db():
+def test_postgres_connection():
     db = PostgresSessionLocal()
+
     try:
-        yield db
+        result = db.execute(text("SELECT current_database();"))
+        return result.fetchone()
+
     finally:
         db.close()
