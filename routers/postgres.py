@@ -62,14 +62,16 @@ def create_postgres_student(student: StudentCreate):
         db.close()
 
 
-        @router.patch("/postgres-students/{student_id}")
-        def update_postgres_student(student_id: int, student: StudentUpdate):
-            db = PostgresSessionLocal()
+
+
+@router.patch("/postgres-students/{student_id}")
+def update_postgres_student(student_id: int, student: StudentUpdate):
+    db = PostgresSessionLocal()
 
     try:
         query = text("""
             UPDATE student
-            SET 
+            SET
                 name = COALESCE(:name, name),
                 age = COALESCE(:age, age),
                 course = COALESCE(:course, course)
